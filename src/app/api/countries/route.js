@@ -1,18 +1,30 @@
 export async function GET(req) {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = req.nextUrl;
+    console.log(req.nextUrl);
     const region = searchParams.get("region");
+    const search = searchParams.get("search");
+    let endpoint;
 
-    const endpoint = region
-        ? `https://restcountries.com/v3.1/region/${region}`
-        : "https://restcountries.com/v3.1/all";
+    if (search) {
+        endpoint = `https://restcountries.com/v3.1/name/${encodeURIComponent(search)}`;
+    } else if (region) {
+        endpoint = `https://restcountries.com/v3.1/region/${encodeURIComponent(region)}`;
+    }
 
     try {
         const response = await fetch(endpoint);
+
         if (!response.ok) {
             throw new Error("Failed to fetch countries");
         }
 
-        const data = await response.json();
+        let data;
+        try {
+            data = await response.json();
+        } catch (jsonError) {
+            console.error("Error parsing JSON:", jsonError);
+            throw new Error("Failed to parse response as JSON.");
+        }
         return new Response(JSON.stringify(data), { status: 200 });
     } catch (error) {
         return new Response(

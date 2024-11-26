@@ -23,7 +23,7 @@ function RootLayout({children}) {
                 <DarkMode />
             </div>
         </header>
-        <main className="transition-colors duration-500 dark:bg-dark-bg-2 bg-grey-main w-full h-screen">{children}</main>
+        <main className="transition-colors duration-500 dark:bg-dark-bg-2 bg-grey-main w-full min-h-screen">{children}</main>
             </body>
         </html>
     );

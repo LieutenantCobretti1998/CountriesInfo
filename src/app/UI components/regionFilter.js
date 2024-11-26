@@ -4,7 +4,7 @@
 import {useState} from "react";
 
 function RegionFilter({changeRegion}) {
-    const [selectedRegion, setSelectedRegion] = useState("");
+    const [selectedRegion, setSelectedRegion] = useState("Europe");
 
     const handleSelectRegion = (event) => {
         const region = event.target.value;
@@ -16,7 +16,6 @@ function RegionFilter({changeRegion}) {
         <div>
             <select className="focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer rounded-md p-3 h-15"
                     name="regionFilter" value={selectedRegion} onChange={handleSelectRegion}>
-                <option value="">Filter by Region</option>
                 <option value="Africa">Africa</option>
                 <option value="America">America</option>
                 <option value="Asia">Asia</option>
