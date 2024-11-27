@@ -1,5 +1,5 @@
 "use client";
-import {Suspense, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import CountriesList from "@/app/UI components/countriesList";
 import Spinner from "@/app/UI components/spinner";
 import RegionFilter from "@/app/UI components/regionFilter";
@@ -46,6 +46,7 @@ function HomePage() {
 
     const handleRegionChange = (selectedRegion) => {
         setSelectedRegion(selectedRegion);
+        setSelectedCountry("");
     };
 
     const handleSearch = (event) => {

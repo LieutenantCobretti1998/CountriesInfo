@@ -3,6 +3,8 @@
 import {useState} from "react";
 import {GrFormNextLink, GrFormPreviousLink} from "react-icons/gr";
 import {useRouter} from "next/navigation";
+import Link from "next/link";
+
 
 function CountriesList({countries}) {
     const router = useRouter();
@@ -22,8 +24,9 @@ function CountriesList({countries}) {
             <div className="flex flex-col gap-8">
                 <section className="grid grid-cols-4 pl-20 gap-9">
                     {currentCountries.map((country) => (
-                        <a key={country.cca2} href="#"
-                           className="flex shadow-sm flex-col rounded-md w-[16.5rem] h-72  bg-white hover:scale-95 transition-all duration-500 dark:bg-dark-bg">
+                        <Link key={country.cca2}
+                              href={`/selected-country/${encodeURIComponent(country.name.official)}`}
+                              className="flex shadow-sm flex-col rounded-md w-[16.5rem] h-72  bg-white hover:scale-95 transition-all duration-500 dark:bg-dark-bg">
                             <div className="w-full h-40 overflow-hidden">
                                 <img className="h-full w-full object-cover" src={country.flags.svg}
                                      alt={country.name.official}/>
@@ -40,7 +43,7 @@ function CountriesList({countries}) {
                                         <strong>Capital</strong>: {country.capital}</p>
                                 </div>
                             </div>
-                        </a>
+                        </Link>
                     ))}
                 </section>
                 <div className="col-start-4 flex justify-start gap-8 mb-6 self-end pr-20">
