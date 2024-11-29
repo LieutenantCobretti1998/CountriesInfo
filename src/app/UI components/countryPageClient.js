@@ -5,13 +5,15 @@ import {GrFormPreviousLink} from "react-icons/gr";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const LeafletMap = dynamic(() => import('@/app/UI components/LeafletMap'), {
-    ssr: false,
-});
 
 
 function CountryPageClient({countryData, borderCountries}) {
+    const LeafletMap = dynamic(() => import('@/app/UI components/LeafletMap'), {
+        ssr: false,
+    });
+    console.log(countryData)
     let nativeName = countryData[0].name;
+    const coordinates = countryData[0].latlng;
     const currencies = countryData[0].currencies;
     const firstCurrency = currencies ? Object.values(currencies)[0] : null;
     const currencyName = firstCurrency ? firstCurrency.name : 'N/A';
@@ -101,7 +103,7 @@ function CountryPageClient({countryData, borderCountries}) {
                     </article>
                 </section>
             )}
-            <LeafletMap id={countryData[0].name.official} />
+            <LeafletMap id={countryData[0].name.official} coordinates={coordinates} />
         </div>
     );
 }

@@ -3,12 +3,12 @@
 import {MapContainer, TileLayer} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-function LeafletMap({id}) {
-    return <div key={id} style={{height: "400px", width: "100%"}}>
+function LeafletMap({id, coordinates}) {
+    return <div className="h-[600px] w-full">
         <MapContainer
-            key={id}
-            center={[51.505, -0.09]} // Replace with your desired center
-            zoom={5} // Replace with your desired zoom level
+            key = {id}
+            center={coordinates}
+            zoom={6}
             style={{height: "100%", width: "100%"}}
         >
             <TileLayer
