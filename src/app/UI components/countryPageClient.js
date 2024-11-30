@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 
 
 
-function CountryPageClient({countryData, borderCountries}) {
+function CountryPageClient({countryData, borderCountries, zoomLevel}) {
     const LeafletMap = dynamic(() => import('@/app/UI components/LeafletMap'), {
         ssr: false,
     });
@@ -26,10 +26,10 @@ function CountryPageClient({countryData, borderCountries}) {
 
     return (
         <div className="gap-10 flex flex-col pl-20 pr-20 py-20">
-            <button className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
                 <GrFormPreviousLink />
                 Back
-            </button>
+            </Link>
             <section className="flex items-center gap-20">
                 <div className="w-[560px] h-[401px]">
                     <Image
@@ -61,6 +61,9 @@ function CountryPageClient({countryData, borderCountries}) {
                             <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
                                 <strong>Subregion</strong>: {countryData[0].subregion}
                             </p>
+                            <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
+                                <strong>Area</strong>: {countryData[0].area}
+                            </p>
                         </div>
                     </div>
                     <div className="flex gap-[15px] flex-col self-center pt-14">
@@ -81,12 +84,15 @@ function CountryPageClient({countryData, borderCountries}) {
                             <strong>TimeZones</strong>:{' '}
                             {countryData[0].timezones.join(', ')}
                         </p>
+                        <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
+                            <strong>Population</strong>: {countryData[0].population}
+                        </p>
                     </div>
                 </article>
             </section>
             {countryData[0].borders && countryData[0].borders.length > 0 && (
                 <section className="flex gap-10">
-                    <p className="font-nunito self-center text-sm dark:text-white transition-colors duration-500">
+                <p className="font-nunito self-center text-sm dark:text-white transition-colors duration-500">
                         <strong>Border countries</strong>:
                     </p>
                     <article className="flex gap-5 justify-center items-center">
@@ -103,7 +109,7 @@ function CountryPageClient({countryData, borderCountries}) {
                     </article>
                 </section>
             )}
-            <LeafletMap id={countryData[0].name.official} coordinates={coordinates} />
+            <LeafletMap zoom={zoomLevel} id={countryData[0].name.official} coordinates={coordinates} />
         </div>
     );
 }

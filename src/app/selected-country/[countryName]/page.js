@@ -38,6 +38,28 @@ async function getCountryDataByCode(countryCode) {
     }
 }
 
+function getZoomLevel(area) {
+    console.log(area)
+    const areaInt = parseInt(area);
+    if (areaInt > 10000000) {
+        return 3;
+    } else if (areaInt > 1000000) {
+        return 4;
+    } else if (areaInt > 500000) {
+        return 5;
+    } else if (areaInt > 100000) {
+        return 6;
+    } else if (areaInt > 50000) {
+        return 6;
+    } else if (areaInt > 10000) {
+        return 7;
+    } else if (areaInt > 5000) {
+        return 8;
+    } else {
+        return 9;
+    }
+}
+
 async function CountryPage({params}) {
     const {countryName} = await params;
     const borderCountries = [];
@@ -46,7 +68,7 @@ async function CountryPage({params}) {
     if (!countryData) {
         return <div>Country is not Found</div>
     }
-
+    const zoomLevel = getZoomLevel(countryData[0].area);
     if (countryData[0].borders.length > 0) {
         for(let i = 0; i < countryData[0].borders.length; i++) {
             const borderCode = countryData[0].borders[i];
@@ -59,7 +81,7 @@ async function CountryPage({params}) {
     }
 
     return (
-        <CountryPageClient countryData={countryData} borderCountries={borderCountries} />
+        <CountryPageClient zoomLevel={zoomLevel} countryData={countryData} borderCountries={borderCountries} />
     )
 }
 
