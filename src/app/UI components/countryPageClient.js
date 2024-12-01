@@ -17,12 +17,7 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
     const firstCurrency = currencies ? Object.values(currencies)[0] : null;
     const currencyName = firstCurrency ? firstCurrency.name : 'N/A';
     const currencySymbol = firstCurrency ? firstCurrency.symbol : 'N/A';
-    console.log(historicalEvents);
-    const sortedEvents = historicalEvents.sort((a, b) => {
-        const dateA = new Date(a.date.split("/").reverse().join("-"));
-        const dateB = new Date(b.date.split("/").reverse().join("-"));
-        return dateA - dateB;
-    })
+
 
     if (nativeName.nativeName) {
         const firstObject = Object.values(nativeName.nativeName)[0];
@@ -118,7 +113,7 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
             <article className="flex flex-col gap-10 pt-10">
                 <h2 className="dark:text-white self-center font-nunito font-bold text-xl"> Top 10 facts</h2>
                 <ol className="list-disc">
-                    {sortedEvents.map((event, index) => (
+                    {historicalEvents.map((event, index) => (
                         <li className="dark:text-white" key={index}>
                             <strong>{`${event.day}/${event.month}/${event.year}`}</strong>: {event.event}
                         </li>

@@ -84,7 +84,7 @@ async function CountryPage({params}) {
     const borderCountries = [];
     const countryData =  await getCountryData(countryName);
     const historicalEvents = await topCountryEvents(countryData[0].name.common);
-    if (!countryData || !historicalEvents) {
+    if (!countryData) {
         return <div>Country is not Found</div>
     }
     const zoomLevel = getZoomLevel(countryData[0].area);
@@ -99,8 +99,14 @@ async function CountryPage({params}) {
         }
     }
 
+    const sortedEvents = historicalEvents.sort((a, b) => {
+        const dateA = new Date(`${a.year}-${a.month}-${a.day}`);
+        const dateB = new Date(`${b.year}-${b.month}-${b.day}`);
+        return dateA - dateB;
+    })
+
     return (
-        <CountryPageClient historicalEvents={historicalEvents} zoomLevel={zoomLevel} countryData={countryData} borderCountries={borderCountries} />
+        <CountryPageClient historicalEvents={sortedEvents} zoomLevel={zoomLevel} countryData={countryData} borderCountries={borderCountries} />
     )
 }
 
