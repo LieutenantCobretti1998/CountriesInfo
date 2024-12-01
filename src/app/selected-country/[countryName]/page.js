@@ -60,12 +60,31 @@ function getZoomLevel(area) {
     }
 }
 
+async function topCountryEvents(countryName) {
+    try {
+        const response = await fetch(`https://api.api-ninjas.com/v1/historicalevents?text=${countryName}`, {
+            headers: {
+                "X-API-KEY": "kqeXjmfuj1VNQOdCO+YyRg==9gqihiKyolznfBAc"
+            }
+        });
+        if (!response.ok) {
+            throw new Error("Could not find a country events data");
+        }
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
 async function CountryPage({params}) {
     const {countryName} = await params;
     const borderCountries = [];
     const countryData =  await getCountryData(countryName);
-
-    if (!countryData) {
+    const historicalEvents = await topCountryEvents(countryData[0].name.common);
+    if (!countryData || !historicalEvents) {
         return <div>Country is not Found</div>
     }
     const zoomLevel = getZoomLevel(countryData[0].area);
@@ -81,7 +100,7 @@ async function CountryPage({params}) {
     }
 
     return (
-        <CountryPageClient zoomLevel={zoomLevel} countryData={countryData} borderCountries={borderCountries} />
+        <CountryPageClient historicalEvents={historicalEvents} zoomLevel={zoomLevel} countryData={countryData} borderCountries={borderCountries} />
     )
 }
 

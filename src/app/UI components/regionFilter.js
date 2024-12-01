@@ -14,7 +14,7 @@ function RegionFilter({changeRegion}) {
 
     return (
         <div>
-            <select className="focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer rounded-md p-3 h-15"
+            <select className="focus:outline-none focus:ring-2 dark:text-white dark:bg-dark-bg transition-colors duration-500 focus:ring-blue-500 cursor-pointer rounded-md p-3 h-15"
                     name="regionFilter" value={selectedRegion} onChange={handleSelectRegion}>
                 <option value="Africa">Africa</option>
                 <option value="America">America</option>

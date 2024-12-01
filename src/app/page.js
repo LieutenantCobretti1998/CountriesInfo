@@ -60,7 +60,7 @@ function HomePage() {
             <section className="flex pl-20 pr-20 py-20">
                 <div className="flex-grow">
                     <div className="flex items-center justify-between">
-                        <input value={selectedCountry} onChange={handleSearch} className="transition-colors duration-500 dark:bg-dark-bg pl-8 py-2 relative rounded-md w-1/3  focus:outline-none focus:ring-2 focus:ring-blue-500" name="searchCountries" placeholder="Search a country here... "/>
+                        <input value={selectedCountry} onChange={handleSearch} className="dark:text-white transition-colors duration-500 dark:bg-dark-bg pl-8 py-2 relative rounded-md w-1/3  focus:outline-none focus:ring-2 focus:ring-blue-500" name="searchCountries" placeholder="Search a country here... "/>
                         <svg xmlns="http://www.w3.org/2000/svg" className="ionicon w-[15px] h-[15px] absolute left-[5.5rem]"
                              viewBox="0 0 512 512">
                             <path className="dark:fill-white" d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none"

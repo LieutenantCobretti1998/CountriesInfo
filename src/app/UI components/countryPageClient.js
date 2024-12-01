@@ -7,17 +7,22 @@ import dynamic from "next/dynamic";
 
 
 
-function CountryPageClient({countryData, borderCountries, zoomLevel}) {
+function CountryPageClient({countryData, borderCountries, zoomLevel, historicalEvents}) {
     const LeafletMap = dynamic(() => import('@/app/UI components/LeafletMap'), {
         ssr: false,
     });
-    console.log(countryData)
     let nativeName = countryData[0].name;
     const coordinates = countryData[0].latlng;
     const currencies = countryData[0].currencies;
     const firstCurrency = currencies ? Object.values(currencies)[0] : null;
     const currencyName = firstCurrency ? firstCurrency.name : 'N/A';
     const currencySymbol = firstCurrency ? firstCurrency.symbol : 'N/A';
+    console.log(historicalEvents);
+    const sortedEvents = historicalEvents.sort((a, b) => {
+        const dateA = new Date(a.date.split("/").reverse().join("-"));
+        const dateB = new Date(b.date.split("/").reverse().join("-"));
+        return dateA - dateB;
+    })
 
     if (nativeName.nativeName) {
         const firstObject = Object.values(nativeName.nativeName)[0];
@@ -25,9 +30,9 @@ function CountryPageClient({countryData, borderCountries, zoomLevel}) {
     }
 
     return (
-        <div className="gap-10 flex flex-col pl-20 pr-20 py-20">
+        <div className="gap-10 flex flex-col pl-20 pr-20 py-20 dark:text-white transition-colors duration-500">
             <Link href="/" className="flex items-center gap-2">
-                <GrFormPreviousLink />
+                <GrFormPreviousLink/>
                 Back
             </Link>
             <section className="flex items-center gap-20">
@@ -92,7 +97,7 @@ function CountryPageClient({countryData, borderCountries, zoomLevel}) {
             </section>
             {countryData[0].borders && countryData[0].borders.length > 0 && (
                 <section className="flex gap-10">
-                <p className="font-nunito self-center text-sm dark:text-white transition-colors duration-500">
+                    <p className="font-nunito self-center text-sm dark:text-white transition-colors duration-500">
                         <strong>Border countries</strong>:
                     </p>
                     <article className="flex gap-5 justify-center items-center">
@@ -101,7 +106,7 @@ function CountryPageClient({countryData, borderCountries, zoomLevel}) {
                                 href={`/selected-country/${encodeURIComponent(border.name)}`}
                                 key={index}
                             >
-                                <p className="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                                <p className="dark:text-white px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition">
                                     {border.countryCode}
                                 </p>
                             </Link>
@@ -109,7 +114,17 @@ function CountryPageClient({countryData, borderCountries, zoomLevel}) {
                     </article>
                 </section>
             )}
-            <LeafletMap zoom={zoomLevel} id={countryData[0].name.official} coordinates={coordinates} />
+            <LeafletMap zoom={zoomLevel} id={countryData[0].name.official} coordinates={coordinates}/>
+            <article className="flex flex-col gap-10 pt-10">
+                <h2 className="dark:text-white self-center font-nunito font-bold text-xl"> Top 10 facts</h2>
+                <ol className="list-disc">
+                    {sortedEvents.map((event, index) => (
+                        <li className="dark:text-white" key={index}>
+                            <strong>{`${event.day}/${event.month}/${event.year}`}</strong>: {event.event}
+                        </li>
+                    ))}
+                </ol>
+            </article>
         </div>
     );
 }
