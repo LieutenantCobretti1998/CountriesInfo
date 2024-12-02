@@ -17,7 +17,7 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
     const firstCurrency = currencies ? Object.values(currencies)[0] : null;
     const currencyName = firstCurrency ? firstCurrency.name : 'N/A';
     const currencySymbol = firstCurrency ? firstCurrency.symbol : 'N/A';
-
+    console.log(countryData)
 
     if (nativeName.nativeName) {
         const firstObject = Object.values(nativeName.nativeName)[0];
@@ -25,44 +25,50 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
     }
 
     return (
-        <div className="gap-10 flex flex-col pl-20 pr-20 py-20 dark:text-white transition-colors duration-500">
-            <Link href="/" className="flex items-center gap-2">
-                <GrFormPreviousLink/>
-                Back
+        <div className="gap-10 flex flex-col pl-20 pr-20 py-20 dark:text-white transition-colors duration-300 ">
+            <Link href="/">
+                <div className="cursor-pointer hover:-translate-y-1 dark:translate-y-0  dark:bg-grey-dark rounded-md dark:hover:bg-dark-bg-2 transition-all duration-300 w-min py-1 px-6 flex items-center gap-1">
+                    <GrFormPreviousLink />
+                    Back
+                </div>
             </Link>
             <section className="flex items-center gap-20">
                 <div className="w-[560px] h-[401px]">
-                    <Image
-                        width={560}
-                        height={401}
-                        quality={100}
-                        priority={true}
-                        className="w-full h-full object-cover rounded-md"
-                        src={countryData[0].flags.png}
-                        alt={countryData[0].name.official}
-                    />
+                    {countryData[0].flags ? (
+                        <Image
+                            width={560}
+                            height={401}
+                            quality={100}
+                            priority={true}
+                            className="w-full h-full object-cover rounded-md"
+                            src={countryData[0].flags.png ? countryData[0].flags.png:countryData[0].flags.svg }
+                            alt={countryData[0].flags.alt ? countryData[0].flags.alt :  countryData[0].name.official}
+                        />
+                    ): (
+                        <p>No Flag image😒</p>
+                    )}
                 </div>
 
                 <article className="flex gap-10">
                     <div className="flex flex-col pl-2 mt-2 gap-5">
                         <p className="font-nunito text-3xl dark:text-white transition-colors duration-500">
-                            <strong>{countryData[0].name.official}</strong>
+                            <strong>{countryData[0].name.official ? countryData[0].name.official: "N/A"}</strong>
                         </p>
                         <div className="flex gap-[15px] flex-col">
                             <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
                                 <strong>Native Name</strong>: {nativeName}
                             </p>
                             <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
-                                <strong>Capital</strong>: {countryData[0].capital[0]}
+                                <strong>Capital</strong>: {countryData[0].capital ? countryData[0].capital[0]: "N/A"}
                             </p>
                             <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
-                                <strong>Region</strong>: {countryData[0].region}
+                                <strong>Region</strong>: {countryData[0].region ? countryData[0].region : "N/A"}
                             </p>
                             <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
-                                <strong>Subregion</strong>: {countryData[0].subregion}
+                                <strong>Subregion</strong>: {countryData[0].subregion ? countryData[0].subregion : "N/A"}
                             </p>
                             <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
-                                <strong>Area</strong>: {countryData[0].area}
+                                <strong>Area</strong>: {countryData[0].area ? countryData[0].area.toLocaleString() : "N/A"}
                             </p>
                         </div>
                     </div>
@@ -85,7 +91,7 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
                             {countryData[0].timezones.join(', ')}
                         </p>
                         <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
-                            <strong>Population</strong>: {countryData[0].population}
+                            <strong>Population</strong>: {countryData[0].population ? countryData[0].population.toLocaleString() : "N/A"}
                         </p>
                     </div>
                 </article>
@@ -111,11 +117,11 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
             )}
             <LeafletMap zoom={zoomLevel} id={countryData[0].name.official} coordinates={coordinates}/>
             <article className="flex flex-col gap-10 pt-10">
-                <h2 className="dark:text-white self-center font-nunito font-bold text-xl"> Top 10 facts</h2>
-                <ol className="list-disc">
-                    {historicalEvents.map((event, index) => (
+                <h2 className="dark:text-white self-center font-nunito font-bold text-xl">Interesting events</h2>
+                <ol className="list-decimal marker:font-bold">
+                    {historicalEvents?.map((event, index) => (
                         <li className="dark:text-white" key={index}>
-                            <strong>{`${event.day}/${event.month}/${event.year}`}</strong>: {event.event}
+                            {`${event.day}/${event.month}/${event.year}`}: {event.event}
                         </li>
                     ))}
                 </ol>

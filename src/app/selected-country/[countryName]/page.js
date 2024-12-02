@@ -88,7 +88,7 @@ async function CountryPage({params}) {
         return <div>Country is not Found</div>
     }
     const zoomLevel = getZoomLevel(countryData[0].area);
-    if (countryData[0].borders.length > 0) {
+    if (countryData[0]?.borders?.length > 0) {
         for(let i = 0; i < countryData[0].borders.length; i++) {
             const borderCode = countryData[0].borders[i];
             const country = await getCountryDataByCode(borderCode);
