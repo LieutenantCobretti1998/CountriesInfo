@@ -9,7 +9,18 @@ import Link from "next/link";
 function CountriesList({countries}) {
     const router = useRouter();
     const [currentPage, setCurrentPage] = useState(1);
-    const itemPerPage = 8;
+    let itemPerPage;
+    if (window.matchMedia("(max-width: 640px)").matches) {
+        itemPerPage = 3;
+    } else if (window.matchMedia("(max-width: 1366px)").matches) {
+        itemPerPage = 9;
+    } else if (window.matchMedia("(max-width: 1024px)").matches) {
+        itemPerPage = 5;
+    }
+
+    else {
+        itemPerPage = 8;
+    }
     const totalPages = Math.ceil(countries.length / itemPerPage);
     const startIndex = (currentPage - 1) * itemPerPage;
     const currentCountries = countries.slice(startIndex, startIndex + itemPerPage);
@@ -22,7 +33,7 @@ function CountriesList({countries}) {
     }
         return (
             <div className="flex flex-col gap-8">
-                <section className="grid grid-cols-4 pl-20 gap-9">
+                <section className="grid grid-cols-4 pl-20 pr-20 gap-9 max-xl:grid-cols-3 between-lg-xl:third-col-end between-lg-xl:second-col-center between-md-lg:second-col-center-mdr xl:last-col-end max-lg:grid-cols-2 between-md-lg:second-col-end max-md:grid-cols-1 max-md:first-col-center">
                     {currentCountries.map((country) => (
                         <Link key={country.cca2}
                               href={`/selected-country/${encodeURIComponent(country.name.official)}`}
@@ -46,7 +57,7 @@ function CountriesList({countries}) {
                         </Link>
                     ))}
                 </section>
-                <div className="col-start-4 flex justify-start gap-8 mb-6 self-end pr-20">
+                <div className="max-md:col-start-1 max-md:self-center max-md:pl-20 col-start-4 flex justify-start gap-8 mb-6 self-end pr-20">
                     <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}
                             className="flex gap-3 items-center px-3 py-2 ml-2 bg-white rounded hover:bg-gray-300 disabled:bg-grey-main disabled:cursor-not-allowed transition-colors duration-300">
                         Previous

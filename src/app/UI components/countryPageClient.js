@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 
 
 
-function CountryPageClient({countryData, borderCountries, zoomLevel, historicalEvents}) {
+function CountryPageClient({countryData, borderCountries, zoomLevel, historicalEvents, wikiUrl}) {
     const LeafletMap = dynamic(() => import('@/app/UI components/LeafletMap'), {
         ssr: false,
     });
@@ -17,7 +17,6 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
     const firstCurrency = currencies ? Object.values(currencies)[0] : null;
     const currencyName = firstCurrency ? firstCurrency.name : 'N/A';
     const currencySymbol = firstCurrency ? firstCurrency.symbol : 'N/A';
-    console.log(countryData)
 
     if (nativeName.nativeName) {
         const firstObject = Object.values(nativeName.nativeName)[0];
@@ -125,6 +124,9 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
                         </li>
                     ))}
                 </ol>
+                {wikiUrl && (
+                    <Link target="_blank" rel="noopener noreferrer" className="self-center text-2xl font-bold" href={wikiUrl}>👉More information about {countryData[0].name.common}👈</Link>
+                )}
             </article>
         </div>
     );

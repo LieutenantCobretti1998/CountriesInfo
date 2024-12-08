@@ -16,7 +16,7 @@ function RootLayout({children}) {
         </head>
         <body>
         <header className="transition-colors duration-500 inline-block w-full dark:bg-dark-bg dark:border-b-dark-bg bg-white border-b-[1.5px] border-b-grey-dark">
-            <div className="pl-20 pr-20 my-7 flex justify-between items-center">
+            <div className="max-md:px-4 pl-20 pr-20 my-7 flex justify-between items-center">
                 <p className="font-nunito dark:text-white transition-colors duration-500">
                     <strong>Where in the World</strong>
                 </p>

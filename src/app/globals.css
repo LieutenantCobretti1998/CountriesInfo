@@ -11,4 +11,29 @@
         width: 32px;
         height: 32px;
     }
+
+    .second-col-center > *:nth-child(3n + 2) {
+        justify-self: center;
+    }
+
+    .second-col-center-md > *:nth-child(2n +2) {
+        justify-self: center;
+    }
+
+    .second-col-end > *:nth-child(2n) {
+        justify-self: end;
+    }
+
+    .third-col-end > *:nth-child(3n) {
+        justify-self: end;
+    }
+
+    .first-col-center > *:nth-child(n) {
+        justify-self: center;
+    }
+
+    .last-col-end > *:nth-child(4n),
+    .last-col-end > *:nth-child(4n + 3){
+        justify-self: end;
+    }
 }

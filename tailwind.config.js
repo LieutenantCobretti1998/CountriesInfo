@@ -32,7 +32,22 @@ module.exports = {
       },
       animation: {
         "spin": "spin 1s infinite linear",
-      }
+      },
+      screens: {
+        "xs": "320px",
+        "sm": "640px",
+        "md": "800px",
+        "lg": "1024px",
+        "xl": "1366px",
+        "2xl": "1920px",
+        "3xl": "2560px",
+        "max-xl": {"max": "1366px"},
+        "max-lg": {"max": "1024px"},
+        "max-md": {"max": "800px"},
+        "max-xs": {"max": "640px"},
+        "between-lg-xl": {"min": "1024px", "max": "1366px"},
+        "between-md-lg": {"min": "800px", "max": "1024px"},
+      },
     },
   },
   plugins: [],
