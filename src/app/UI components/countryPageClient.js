@@ -115,19 +115,21 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
                 </section>
             )}
             <LeafletMap zoom={zoomLevel} id={countryData[0].name.official} coordinates={coordinates}/>
-            <article className="flex flex-col gap-10 pt-10">
-                <h2 className="dark:text-white self-center font-nunito font-bold text-xl">Interesting events</h2>
-                <ol className="list-decimal marker:font-bold">
-                    {historicalEvents?.map((event, index) => (
-                        <li className="dark:text-white" key={index}>
-                            {`${event.day}/${event.month}/${event.year}`}: {event.event}
-                        </li>
-                    ))}
-                </ol>
-                {wikiUrl && (
-                    <Link target="_blank" rel="noopener noreferrer" className="self-center text-2xl font-bold" href={wikiUrl}>👉More information about {countryData[0].name.common}👈</Link>
-                )}
-            </article>
+            {historicalEvents.length !== 0 && (
+                <article className="flex flex-col gap-10 pt-10">
+                    <h2 className="dark:text-white self-center font-nunito font-bold text-xl">Interesting events</h2>
+                    <ol className="list-decimal marker:font-bold">
+                        {historicalEvents?.map((event, index) => (
+                            <li className="dark:text-white" key={index}>
+                                {`${event.day}/${event.month}/${event.year}`}: {event.event}
+                            </li>
+                        ))}
+                    </ol>
+                    {wikiUrl && (
+                        <Link target="_blank" rel="noopener noreferrer" className="self-center text-2xl font-bold" href={wikiUrl}>👉More information about {countryData[0].name.common}👈</Link>
+                    )}
+                </article>
+            )}
         </div>
     );
 }
