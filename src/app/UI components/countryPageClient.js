@@ -6,8 +6,30 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 
 
+const weatherIconsMap = {
+    "Rain": <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"
+              d="M120 352l-24 48M136 432l-16 32M400 352l-24 48M416 432l-16 32M208 304l-16 96h48v80l80-112h-48l16-64M404.33 152.89H392.2C384.71 84.85 326.14 32 256 32a136.39 136.39 0 00-128.63 90.67h-4.57c-49.94 0-90.8 40.8-90.8 90.66h0C32 263.2 72.86 304 122.8 304h281.53C446 304 480 270 480 228.44h0c0-41.55-34-75.55-75.67-75.55z"/>
+    </svg>,
+    "Clear": <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="32"
+              d="M256 48v48M256 416v48M403.08 108.92l-33.94 33.94M142.86 369.14l-33.94 33.94M464 256h-48M96 256H48M403.08 403.08l-33.94-33.94M142.86 142.86l-33.94-33.94"/>
+        <circle cx="256" cy="256" r="80" fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10"
+                strokeWidth="32"/>
+    </svg>,
+    "Clouds": <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512">
+        <path
+            d="M100.18 241.19a15.93 15.93 0 0013.37-13.25C126.6 145.59 186.34 96 256 96c64.69 0 107.79 42.36 124.92 87a16.11 16.11 0 0012.53 10.18C449.36 202.06 496 239.21 496 304c0 66-54 112-120 112H116c-55 0-100-27.44-100-88 0-54.43 43.89-80.81 84.18-86.81z"
+            fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="32"/>
+    </svg>,
+    "Snow": <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"
+              d="M256 32v448M313.72 80A111.47 111.47 0 01256 96a111.47 111.47 0 01-57.72-16M198.28 432a112.11 112.11 0 01115.44 0M449.99 144L62.01 368M437.27 218a112.09 112.09 0 01-57.71-100M74.73 294a112.09 112.09 0 0157.71 100M62.01 144l387.98 224M74.73 218a112.09 112.09 0 0057.71-100M437.27 294a112.09 112.09 0 00-57.71 100"/>
+    </svg>
+}
 
-function CountryPageClient({countryData, borderCountries, zoomLevel, historicalEvents, wikiUrl}) {
+
+function CountryPageClient({countryData, borderCountries, zoomLevel, historicalEvents, wikiUrl, weatherData}) {
     const LeafletMap = dynamic(() => import('@/app/UI components/LeafletMap'), {
         ssr: false,
     });
@@ -25,12 +47,33 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
 
     return (
         <div className="gap-10 flex flex-col pl-20 pr-20 py-20 dark:text-white transition-colors duration-300 ">
-            <Link href="/">
-                <div className="cursor-pointer hover:-translate-y-1 dark:translate-y-0  dark:bg-grey-dark rounded-md dark:hover:bg-dark-bg-2 transition-all duration-300 w-min py-1 px-6 flex items-center gap-1">
-                    <GrFormPreviousLink />
-                    Back
+            <div className="flex justify-between">
+                <Link href="/">
+                    <div className="cursor-pointer hover:-translate-y-1 dark:translate-y-0  dark:bg-grey-dark rounded-md dark:hover:bg-dark-bg-2 transition-all duration-300 w-min py-1 px-6 flex items-center gap-1">
+                        <GrFormPreviousLink />
+                        Back
+                    </div>
+                </Link>
+                <div className="bg-grey-dark h-15 p-4 rounded-md">
+                    <article className="bg-grey flex items-center gap-10 h-10">
+                        {weatherData.map((forecast, index) => {
+                            const original = forecast.dt_txt;
+                            const weatherStatus = forecast.weather?.[0]?.main;
+                            console.log(weatherStatus)
+                            const icon = weatherIconsMap[weatherStatus] || null;
+                            const datePart = original.split(' ')[0];
+                            const [year, month, day] = datePart.split('-'); // year="2024", month="12", day="13"
+                            const monthDayFormat = `${month}/${day}`; // "12/13"
+                            return (
+                                <div className="flex flex-col justify-center items-center">
+                                    <div>{monthDayFormat}</div>
+                                    <div>{icon}</div>
+                                </div>
+                            )
+                        })}
+                    </article>
                 </div>
-            </Link>
+            </div>
             <section className="flex items-center gap-20">
                 <div className="w-[560px] h-[401px]">
                     {countryData[0].flags ? (
@@ -40,7 +83,7 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
                             quality={100}
                             priority={true}
                             className="w-full h-full object-cover rounded-md"
-                            src={countryData[0].flags.png ? countryData[0].flags.png:countryData[0].flags.svg }
+                            src={countryData[0].flags.png ? countryData[0].flags.png : countryData[0].flags.svg}
                             alt={countryData[0].flags.alt ? countryData[0].flags.alt :  countryData[0].name.official}
                         />
                     ): (

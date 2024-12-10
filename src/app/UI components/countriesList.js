@@ -47,7 +47,7 @@ function CountriesList({countries}) {
                                     <strong>{country.name.official}</strong></p>
                                 <div className="flex gap-[8px] flex-col">
                                     <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
-                                        <strong>Population</strong>: {country.population}</p>
+                                        <strong>Population</strong>: {country.population.toLocaleString()}</p>
                                     <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
                                         <strong>Region</strong>: {country.region}</p>
                                     <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
