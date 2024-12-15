@@ -115,7 +115,7 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
                             </p>
                         </div>
                     </div>
-                    <div className="max-xl:pt-4 flex gap-[15px] flex-col self-center pt-14">
+                    <div className="max-xl:pt-4 sm:self-center flex gap-[15px] flex-col pt-14">
                         <p className="font-nunito text-sm dark:text-white transition-colors duration-500">
                             <strong>Top level domain</strong>:{' '}
                             {countryData[0].tld && countryData[0].tld[0]
