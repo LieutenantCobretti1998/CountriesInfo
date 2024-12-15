@@ -7,6 +7,8 @@ import LeafletMap from "@/app/UI components/LeafletMap";
 import CountryPageClient from "@/app/UI components/countryPageClient";
 import dailyForecasts from "@/app/helpers/forecasts";
 
+console.log("API Key:", process.env.NEXT_PUBLIC_API_NINJAS_KEY);
+
 
 async function getCountryData(countryName) {
     try {
