@@ -11,7 +11,7 @@ const customIcon = new L.Icon({
 })
 
 function LeafletMap({id, coordinates, zoom}) {
-    return <div className="h-[600px] w-full">
+    return <div className="max-md:h-[300px] h-[600px] w-full">
         <MapContainer
             className="rounded-md"
             key = {id}

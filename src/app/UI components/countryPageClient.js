@@ -62,11 +62,11 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
                                 const weatherStatus = forecast.weather?.[0]?.main;
                                 const icon = weatherIconsMap[weatherStatus] || null;
                                 const datePart = original.split(' ')[0];
-                                const [year, month, day] = datePart.split('-'); // year="2024", month="12", day="13"
-                                const monthDayFormat = `${month}/${day}`; // "12/13"
+                                const [year, month, day] = datePart.split('-');
+                                const monthDayFormat = `${month}/${day}`;
                                 return (
                                     <div key={index} className="max-md:gap-1 flex flex-col justify-center items-center">
-                                        <div className="max-md:text-sm">{monthDayFormat}</div>
+                                        <div className="max-md:text-[.5rem]">{monthDayFormat}</div>
                                         <div>{icon}</div>
                                     </div>
                                 )
@@ -170,7 +170,7 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
                         ))}
                     </ol>
                     {wikiUrl && (
-                        <Link target="_blank" rel="noopener noreferrer" className="self-center text-2xl font-bold" href={wikiUrl}>👉More information about {countryData[0].name.common}👈</Link>
+                        <Link target="_blank" rel="noopener noreferrer" className="max-md:text-[.7rem] self-center text-2xl font-bold" href={wikiUrl}>👉More information about {countryData[0].name.common}👈</Link>
                     )}
                 </article>
             )}

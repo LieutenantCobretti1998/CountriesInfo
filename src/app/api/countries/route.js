@@ -1,6 +1,5 @@
 export async function GET(req) {
     const { searchParams } = req.nextUrl;
-    console.log(req.nextUrl);
     const region = searchParams.get("region");
     const search = searchParams.get("search");
     let endpoint;

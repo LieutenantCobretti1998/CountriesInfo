@@ -1,18 +1,26 @@
 
 import './globals.css';
 import DarkMode from "@/app/UI components/darkMode";
+import { Nunito_Sans } from '@next/font/google';
+
+
+const nunitoSans = Nunito_Sans({
+    weight: ["300", "400", "500", "600", "700", "800", "900"],
+    style: ["normal", "italic"],
+    display: "swap",
+    variable: "--font-nunitoSans",
+});
+
+export const metadata = {
+    title: "Countries REST API",
+    description: "Main Page",
+};
 
 function RootLayout({children}) {
     return (
-        <html lang="en">
+        <html lang="en" className={nunitoSans.className}>
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <title>Country Information Website</title>
-            <link rel="preconnect" href="https://fonts.googleapis.com"/>
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
-            <link
-                href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
-                rel="stylesheet"/>
         </head>
         <body>
         <header className="transition-colors duration-500 inline-block w-full dark:bg-dark-bg dark:border-b-dark-bg bg-white border-b-[1.5px] border-b-grey-dark">

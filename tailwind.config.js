@@ -18,7 +18,7 @@ module.exports = {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        nunito: ['"Nunito Sans"', 'ui-sans-serif', 'system-ui']
+        nunito: ['var(--font-nunitoSans)', 'sans-serif']
       },
       keyframes: {
         "spin": {

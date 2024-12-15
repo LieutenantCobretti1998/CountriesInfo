@@ -51,8 +51,14 @@ function HomePage() {
 
     const handleSearch = (event) => {
         const searchedCountry = event.target.value;
-        setSelectedCountry(searchedCountry);
-        setSelectedRegion("");
+
+        if (!searchedCountry.trim()) {
+            setSelectedRegion("Europe");
+            setSelectedCountry("");
+        } else {
+            setSelectedRegion("Europe");
+            setSelectedCountry(searchedCountry);
+        }
     }
 
     return (
@@ -68,7 +74,7 @@ function HomePage() {
                             <path className="dark:stroke-white" fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10"
                                   strokeWidth="32" d="M338.29 338.29L448 448"/>
                         </svg>
-                        <RegionFilter changeRegion={handleRegionChange} />
+                        <RegionFilter changeRegion={handleRegionChange} selectedRegion={selectedRegion} />
                     </div>
                 </div>
             </section>
