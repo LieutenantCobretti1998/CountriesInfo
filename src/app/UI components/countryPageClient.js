@@ -33,7 +33,7 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
     const LeafletMap = dynamic(() => import('@/app/UI components/LeafletMap'), {
         ssr: false,
     });
-    let nativeName = countryData[0].name;
+    let nativeName = countryData[0]?.name;
     const coordinates = countryData[0].latlng;
     const currencies = countryData[0].currencies;
     const firstCurrency = currencies ? Object.values(currencies)[0] : null;
