@@ -1,10 +1,11 @@
 
 import './globals.css';
 import DarkMode from "@/app/UI components/darkMode";
-import { Nunito_Sans } from '@next/font/google';
+import { Nunito_Sans } from 'next/font/google';
 
 
 const nunitoSans = Nunito_Sans({
+    subsets: ["latin"],
     weight: ["300", "400", "500", "600", "700", "800", "900"],
     style: ["normal", "italic"],
     display: "swap",

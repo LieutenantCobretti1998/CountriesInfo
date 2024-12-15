@@ -4,7 +4,6 @@
 import {useState} from "react";
 
 function RegionFilter({changeRegion, selectedRegion}) {
-    console.log(selectedRegion)
 
     const handleSelectRegion = (event) => {
         const region = event.target.value;
