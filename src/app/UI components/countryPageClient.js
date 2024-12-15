@@ -76,7 +76,7 @@ function CountryPageClient({countryData, borderCountries, zoomLevel, historicalE
                 )}
             </div>
             <section className="max-xl:flex-col max-xl:items-start flex items-center gap-20">
-                <div className="max-xl:max-w-[500px] max-xl:h-[300px] max-xs:max-w-[280px] max-xs:h-[250px] w-[560px] h-[401px]">
+                <div className="max-xl:max-w-[500px] max-xl:h-[300px] max-xs:max-w-[235px] max-xs:h-[200px] w-[560px] h-[401px]">
                     {countryData[0].flags ? (
                         <Image
                             width={560}
