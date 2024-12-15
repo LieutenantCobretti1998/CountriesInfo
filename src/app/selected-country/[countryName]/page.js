@@ -87,7 +87,7 @@ async function wikiApi(countryName) {
             }
         })
         if (!response.ok) {
-            throw new Error("Could not find a country events data");
+            throw new Error("Could not find a country data in wiki");
         }
         return url;
     } catch (error) {
@@ -101,7 +101,7 @@ async function weatherData(lat, ln) {
         const response = await fetch(url, {
         })
         if (!response.ok) {
-            throw new Error("Could not find a country events data");
+            throw new Error("Could not find a country weather data");
         }
         const data = await response.json();
         return data;
